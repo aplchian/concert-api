@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-const dalNoSQL = require('./DAL/noSQL.js');
+const dalNoSQL = require('./DAL/no-sql.js');
 
 const path = require('path');
 const PouchDB = require('pouchdb-http');
@@ -11,9 +11,16 @@ var config = fetchConfig(path.join(__dirname, '.'), {
     dcValue: 'test'
 });
 
-const couch_base_uri = config.get("couch.baseURI") + ':' + config.get("couch.port") + "/";
-const couch_dbname = config.get("couch.dbName");
-const db = new PouchDB(couch_base_uri + couch_dbname);
+
+const couch_base_uri = config.get("couch.hostname") + ':' + config.get("couch.port") + "/";
+const couch_dbname = config.get("couch.pathname");
+//console.log("couch_base_uri + couch_dbname ", couch_base_uri + couch_dbname )
+
+//const db = new PouchDB(couch_base_uri + couch_dbname);
+//const db = new PouchDB('http://localhost:5984/relief-tracker');
+
+const urlFormat = require('url').format;
+const db = new PouchDB(urlFormat(config.get("couch")));
 
 function removeDoc(data) {
     var removeDoc = {
@@ -23,6 +30,7 @@ function removeDoc(data) {
 
     db.remove(removeDoc, function(err, response) {
         if (err) console.log(err);
+        console.log("Test doc successfully removed from db.")
     });
 }
 
@@ -63,8 +71,10 @@ function missingPersonDataUpdateTest(data, withOrWithout, test, number) {
 }
 
 function AddPersonTest(data, number, remove) {
+    console.log("Inside AddPersonTest dalNoSQL ", dalNoSQL)
     dalNoSQL.createPerson(data, function callback(err, response) {
         if (err) {
+            console.log("Error with AddPersonTest createPerson", err)
             console.log("Test #", number, ": Fail --> createPerson() did not add person to the database.", data);
         }
         if (response && response.ok === true) {

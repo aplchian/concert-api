@@ -19,6 +19,7 @@
     "pouchdb-http": "^5.4.5",
     "pouchdb-mapreduce": "^5.4.5",
     "server-summary": "^6.0.1",
+    "url": "^0.11.0",
     "zero-config": "^7.0.1"
   }
 }
