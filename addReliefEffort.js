@@ -7,9 +7,9 @@
 //  and run the following command:
 // $ NODE_ENV=production node addReliefEffort.js
 
-const dalNoSQL = require('./DAL/noSQL.js');
+const dalNoSQL = require('./DAL/no-sql.js');
 
-const createReliefEffortDataHugo = {
+const reliefEffortData = [{
     "phase": "completed",
     "name": "Hurricane Hugo 1989",
     "organizationID": "Hurricane Helpers",
@@ -17,12 +17,8 @@ const createReliefEffortDataHugo = {
     "start": "1989-09-10",
     "end": "1989-09-25",
     "active": true
-};
-
-
-
-const createReliefEffortDataHaiti2015 = {
-    "_id": "relief_St_Phillips_Haiti_2015",
+},
+{
     "type": "relief",
     "phase": "completed",
     "name": "Haiti 2015",
@@ -43,10 +39,8 @@ const createReliefEffortDataHaiti2015 = {
         "role": "Team member",
         "personID": "person_judy5555@aol.com"
     }]
-};
-
-
-const createReliefEffortDataHaiti2017 = {
+},
+{
     "type": "relief",
     "phase": "planning",
     "name": "Haiti 2017",
@@ -67,18 +61,16 @@ const createReliefEffortDataHaiti2017 = {
         "role": "Team member",
         "personID": "person_JimmyMartinJr@gmail.com"
     }]
-}
-
-const createReliefEffortDataKenya2015 = {
+},
+{
     "phase": "completed",
     "name": "Kenya 2015",
     "organizationID": "St. Phillips",
     "desc": "Build school in Kenya",
     "start": "2015-01-05",
     "end": "2015-02-15"
-}
-
-const createReliefEffortDataKenya2016 = {
+},
+{
     "type": "relief",
     "phase": "completed",
     "name": "Kenya 2016",
@@ -88,5 +80,18 @@ const createReliefEffortDataKenya2016 = {
     "end": "2016-02-15",
     "active": true
 }
+];
+
+
+function callback (msgHeader) {
+  return function (err, response) {
+    if (err) return console.log('ERROR:\n', err.message)
+    return console.log(msgHeader, response)
+  }
+}
+
+reliefEffortData.forEach(function(reliefEffort, index) {
+  dalNoSQL.createReliefEffort(reliefEffort, callback('RELIEF EFFORT CREATED:\n'))
+})
 
 //console.log(dalNoSQL.getDBInfo());

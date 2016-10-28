@@ -3,7 +3,7 @@
     "protocol": "http",
     "hostname": "127.0.0.1",
     "port": 5984,
-    "pathname": "relief-tracker"
+    "pathname": "relief-tracker-test"
   },
   "mySQL": {
     "host": "127.0.0.1",
