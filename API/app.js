@@ -45,9 +45,9 @@ app.get('/', function(req, res, next) {
 })
 
 app.get('/venues/:id', function(req, res, next) {
-    // const venueID = req.params.id
-    res.send(venueID)  //<- use to test
-    dal.getVenue(VenueID, function(err, data) {
+    const venueID = req.params.id
+    //res.send(venueID)  //<- use to test
+    dal.getVenue(venueID, function(err, data) {
         if (err) {
                 var responseError = BuildResponseError(err)
                 return next(new HTTPError(responseError.status, responseError.message, responseError));
@@ -60,12 +60,10 @@ app.get('/venues/:id', function(req, res, next) {
 
 })
 
-
-
 app.get('/cities/:id', function(req, res, next) {
-    const venueID = req.params.id
+    const cityID = req.params.id
      //res.send(venueID)  //<- use to test
-     dal.getCity(VenueID, function(err, data) {
+     dal.getCity(cityID, function(err, data) {
         if (err) {
             var responseError = BuildResponseError(err)
             return next(new HTTPError(responseError.status, responseError.message, responseError));
