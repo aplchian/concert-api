@@ -76,6 +76,124 @@ app.get('/cities/:id', function(req, res, next) {
 
 })
 
+app.get('/venuesbystate', function (req, res, next) {
+  const sortByParam = req.query.sortby
+  //const sortBy = getPersonSortBy(sortByParam, dalModule)
+  const sortBy = sortByParam
+  const sortToken = req.query.sorttoken || ''
+  const limit = req.query.limit || 5
+
+  dal.venuesByState(sortToken, limit, function callback(err, data) {
+    if (err) {
+        var responseError = BuildResponseError(err)
+        return next(new HTTPError(responseError.status, responseError.message, responseError));
+    }
+    if (data) {
+      console.log('Call successful.  Venues listed', data)
+      res.append('Content-type', 'application/json')
+      res.status(201).send(JSON.stringify(data, null, 2))
+    }
+  })
+})
+
+app.get('/sortvenues/capacity', function (req, res, next) {
+  const sortByParam = req.query.sortby
+  //const sortBy = getPersonSortBy(sortByParam, dalModule)
+  const sortBy = sortByParam
+  const sortToken = req.query.sorttoken || ''
+  const limit = req.query.limit || 5
+
+  dal.venuesByCapacity(sortToken, limit, function callback(err, data) {
+    if (err) {
+        var responseError = BuildResponseError(err)
+        return next(new HTTPError(responseError.status, responseError.message, responseError));
+    }
+    if (data) {
+      console.log('Call successful.  Venues listed by capacity', data)
+      res.append('Content-type', 'application/json')
+      res.status(201).send(JSON.stringify(data, null, 2))
+    }
+  })
+})
+
+app.get('/sortvenues/indoor', function (req, res, next) {
+  const sortByParam = req.query.sortby
+  //const sortBy = getPersonSortBy(sortByParam, dalModule)
+  const sortBy = sortByParam
+  const sortToken = req.query.sorttoken || ''
+  const limit = req.query.limit || 5
+  dal.indoorVenues(sortToken, limit, function callback(err, data) {
+    if (err) {
+        var responseError = BuildResponseError(err)
+        return next(new HTTPError(responseError.status, responseError.message, responseError));
+    }
+    if (data) {
+      console.log('Call successful.  Venues listed', data)
+      res.append('Content-type', 'application/json')
+      res.status(201).send(JSON.stringify(data, null, 2))
+    }
+  })
+})
+
+app.get('/sortvenues/outdoor', function (req, res, next) {
+  const sortByParam = req.query.sortby
+  //const sortBy = getPersonSortBy(sortByParam, dalModule)
+  const sortBy = sortByParam
+  const sortToken = req.query.sorttoken || ''
+  const limit = req.query.limit || 5
+
+  dal.outdoorVenues(sortToken, limit, function callback(err, data) {
+    if (err) {
+        var responseError = BuildResponseError(err)
+        return next(new HTTPError(responseError.status, responseError.message, responseError));
+    }
+    if (data) {
+      console.log('Call successful.  Venues listed', data)
+      res.append('Content-type', 'application/json')
+      res.status(201).send(JSON.stringify(data, null, 2))
+    }
+  })
+})
+
+app.get('/cities', function (req, res, next) {
+  const sortByParam = req.query.sortby
+  const sortBy = sortByParam
+  const sortToken = req.query.sorttoken || ''
+  const limit = req.query.limit || 5
+
+  dal.citiesByState(sortToken, limit, function callback(err, data) {
+    if (err) {
+        var responseError = BuildResponseError(err)
+        return next(new HTTPError(responseError.status, responseError.message, responseError));
+    }
+    if (data) {
+      console.log('Call successful.  Cities listed', data)
+      res.append('Content-type', 'application/json')
+      res.status(201).send(JSON.stringify(data, null, 2))
+    }
+  })
+})
+
+app.get('/venues', function (req, res, next) {
+  const sortByParam = req.query.sortby
+  const sortBy = sortByParam
+  const sortToken = req.query.sorttoken || ''
+  const limit = req.query.limit || 5
+
+  dal.venuesByState(sortToken, limit, function callback(err, data) {
+    if (err) {
+        var responseError = BuildResponseError(err)
+        return next(new HTTPError(responseError.status, responseError.message, responseError));
+    }
+    if (data) {
+      console.log('Call successful.  Cities listed', data)
+      res.append('Content-type', 'application/json')
+      res.status(201).send(JSON.stringify(data, null, 2))
+    }
+  })
+})
+
+
 app.post('/venues', function(req, res, next) {
     console.log(req.body)
     dal.createVenue(req.body, function(err, data) {
