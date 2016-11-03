@@ -129,9 +129,8 @@ app.put('/cities/:id', function(req, res, next) {
     })
 })
 
-app.delete('/city/:id', function(req, res, next) {
-    console.log(req.body)
-    dal.deleteCity(req.body, function(err, data) {
+app.delete('/cities/:id', function(req, res, next) {
+    dal.deleteCity(req.params.id, function(err, data) {
         if (err) {
             var responseError = BuildResponseError(err)
             return next(new HTTPError(responseError.status, responseError.message, responseError));
@@ -142,8 +141,7 @@ app.delete('/city/:id', function(req, res, next) {
     })
 })
 app.delete('/venues/:id', function(req, res, next) {
-    console.log(req.body)
-    dal.deleteVenue(req.body, function(err, data) {
+    dal.deleteVenue(req.params.id, function(err, data) {
         if (err) {
             var responseError = BuildResponseError(err)
             return next(new HTTPError(responseError.status, responseError.message, responseError));
