@@ -22,7 +22,7 @@ var views = [{
         capacity: {
             map: function(doc) {
                 if (doc.type === "venue") {
-                    emit(doc.capacity + "_" + doc._id)
+                    emit(doc.capacity)
                 }
             }.toString()
         }
@@ -71,7 +71,8 @@ var views = [{
             }.toString()
         }
     }
-}]
+}
+]
 
 var venues = [{
     "name": "Ryman Auditorium",
@@ -115,7 +116,16 @@ var venues = [{
     "capacity": 900,
     "type": "venue",
     "venue_type": "indoor"
-}, ]
+},{
+    "name": "My House",
+    "city": "Mt. Pleasant",
+    "state": "SC",
+    "capacity": 40,
+    "type": "venue",
+    "venue_type": "outdoor"
+},
+
+ ]
 
 var cities = [{
         "name": "Athens",
